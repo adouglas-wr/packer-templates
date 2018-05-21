@@ -1,6 +1,7 @@
 Write-Host "Uninstall Chef..."
-if(Test-Path "c:\windows\temp\chef.msi") {
-  Start-Process MSIEXEC.exe '/uninstall c:\windows\temp\chef.msi /quiet' -Wait
+$chef = Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -match "Chef" }
+if ($chef) {
+  $chef.uninstall()
 }
 
 Write-Host "Cleaning Temp Files"
@@ -20,7 +21,7 @@ $ArraySize= 64kb
 $SpaceToLeave= $Volume.Size * 0.05
 $FileSize= $Volume.FreeSpace - $SpacetoLeave
 $ZeroArray= new-object byte[]($ArraySize)
- 
+
 $Stream= [io.File]::OpenWrite($FilePath)
 try {
    $CurFileSize = 0
@@ -34,5 +35,5 @@ finally {
         $Stream.Close()
     }
 }
- 
+
 Remove-Item $FilePath
