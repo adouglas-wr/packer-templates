@@ -8,7 +8,7 @@
         [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
       ],
       "guest_additions_mode": "{{ user `guest_additions_mode` }}",
-      "guest_os_type": "Windows2016_64",
+      "guest_os_type": "Windows10_64",
       "headless": "{{ user `headless` }}",
       "iso_url": "{{ user `iso_url` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
@@ -20,8 +20,8 @@
       "shutdown_command": "C:/Windows/Panther/Unattend/packer_shutdown.bat",
       "shutdown_timeout": "15m",
       "floppy_files": [
-        "answer_files/2016/Autounattend.xml",
-        "scripts/winrm.ps1"
+        "answer_files/w10e/Autounattend.xml",
+        "scripts/win10-winrm.ps1"
       ]
     }
   ],
@@ -84,14 +84,14 @@
     {
       "type": "vagrant",
       "keep_input_artifact": true,
-      "output": "windows2016min-{{.Provider}}.box",
+      "output": "windows10e-{{.Provider}}.box",
       "vagrantfile_template": "vagrantfile-windows.template"
     }
   ],
   "variables": {
     "guest_additions_mode": "attach",
     "headless": "true",
-    "iso_checksum": "70721288bbcdfe3239d8f8c0fae55f1f",
-    "iso_url": "file://packer_cache/Windows_Server_2016_Datacenter_EVAL_en-us_14393_refresh.ISO"
+    "iso_checksum": "89f6b3079b3669560d29f3c4be9cc74d",
+    "iso_url": "https://software-download.microsoft.com/download/pr/17134.1.180410-1804.rs4_release_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso"
   }
 }
